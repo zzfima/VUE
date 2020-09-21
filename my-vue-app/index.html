@@ -1,11 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>my-vue-app</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script src="/dist/build.js"></script>
-  </body>
+<html>
+
+<head>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="example">
+    <form action="javascript:void(0);">
+      <button v-on:click="dosomething">Add 1 to list</button>
+      <li>{{ counter }}</li>
+      <li>{{ message }}</li>
+    </form>
+  </div>
+
+  <script>
+    var places = ['World', 'America', 'Europe', 'Asia']
+    var object = {
+      message: 'Hello world!',
+      counter: 0
+    }
+    new Vue({
+      el: '#example',
+      data: object,
+      methods: {
+        dosomething: function (event) {
+          // `this` inside methods points to the Vue instance
+          // `event` is the native DOM event
+          // alert(event.target.tagName);
+          this.counter += 1;
+          this.message = 'Hello ' + (places[this.counter % 4]) + '!';
+        }
+      }
+    })
+  </script>
+</body>
+
 </html>
