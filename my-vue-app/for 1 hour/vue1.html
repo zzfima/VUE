@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- development version of CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <!-- two ways bind ing -->
+    <div id="vue_class_1" v-bind:title="v_title">
+        <ul>{{v_title}}</ul>
+
+        <!--Bind click to functions by @--->
+        <ul @click="funcAlert2">
+            <!--iterate in list-->
+            <li v-for="(itm, indx) in list_numbers">{{indx}} {{itm}}</li>
+        </ul>
+
+        <!--click can do something by @-->
+        <ul @click="users[0].id = users[0].id + 1">
+            <!--iterate in dictionary-->
+            <li v-for="(user, indx) in users">
+                {{indx}}.{{user['name']}} is {{user.id}}
+            </li>
+        </ul>
+
+        <ul @mouseover="users[0].id = users[0].id + 1">
+            <!--iterate in list-->
+            <li v-for="(itm, indx) in list_numbers">{{indx}} {{itm}}</li>
+        </ul>
+
+        <!--Bind table click to functions by v-on-->
+        <table border="2" v-on:click="funcAlert1">
+            <thead>
+                <th>ID</th>
+                <th>Name</th>
+            </thead>
+            <tbody>
+                <!--Bind table data to dictionary-->
+                <tr v-for="user in users">
+                    <td>{{user.id}}</td>
+                    <td>{{user.name}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script type="text/javascript">
+        var vue_class_1_obj = new Vue({
+            el: "#vue_class_1",
+            // data define: list and dictionary
+            data: {
+                v_title: 'my vue app',
+                list_numbers: ['zero', 'one', 'two', 'three'],
+                users: [
+                    { id: 0, name: 'Moshe' },
+                    { id: 42342345, name: 'Alex' },
+                    { id: 65465464, name: 'Nir' },
+                    { id: 23232323, name: 'Kobi' },
+                ]
+            },
+            // two ways of function define
+            methods: {
+                funcAlert1() {
+                    alert('1');
+                    // this - access to class member
+                    this.users[0].id = 0;
+                },
+                funcAlert2: function () {
+                    alert('2');
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
