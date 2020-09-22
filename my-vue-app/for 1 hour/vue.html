@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- development version of CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <!--     can be v-bind:title -->
+    <div id="vue_class_1" :title="v_title">
+        <p>{{v_message}}</p>
+
+        <!-- if else bool-->
+        <h1 v-if="status">True status</h1>
+        <h1 v-else>False status</h1>
+
+        <!-- if else value-->
+        <h1 v-if="val == 0">Value is 0</h1>
+        <h1 v-else-if="val == 1">Value is 1</h1>
+        <h1 v-else>Value nor 0 nor 1. Is {{val}}</h1>
+
+        <!-- using templates-->
+        <template v-if="template_val == 'main'">
+            <h1>Main selected template 1</h1>
+            <h1>Do main stuff</h1>
+        </template>
+
+        <template v-else>
+            <h1>Default selected template</h1>
+            <h1>Do default stuff</h1>
+            <h1>Received value is {{template_val}}</h1>
+        </template>
+
+    </div>
+
+    <script type="text/javascript">
+        var vue_class_1_obj = new Vue({
+            el: "#vue_class_1",
+            data: {
+                v_message: 'Hello Vue.js',
+                v_title: '...',
+                status: true,
+                val: 1,
+                template_val: 'main'
+            }
+        })
+    </script>
+</body>
+
+</html>
