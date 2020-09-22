@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- development version of CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="vue_class_1">
+        <button @click="count_up">{{counter}}</button>
+    </div>
+
+    <script type="text/javascript">
+        var vue_class_1_obj = new Vue({
+            el: "#vue_class_1",
+            data: {
+                counter: 0,
+            },
+            methods: {
+                count_up() {
+                    this.counter++;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
