@@ -7,22 +7,66 @@
     <title>Document</title>
     <!-- development version of CDN -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 
 <body>
     <div id="vue_class_1">
-        <button @click="count_up">{{counter}}</button>
+        <button @click="getHashTag">Load</button>
+        <ul>
+            <li v-for="hashTag in hashTags">{{hashTag}}</li>
+        </ul>
+
+        <button @click="getCities">Load</button>
+        <ul>
+            <li v-for="city in cities">{{city['city']}} is in {{city.region}}</li>
+        </ul>
+
+        <h3>{{textSearch}}</h3>
+        <!--Two way binding to property-->
+        <input type="text" size="50" v-model="textSearch">
     </div>
 
     <script type="text/javascript">
         var vue_class_1_obj = new Vue({
             el: "#vue_class_1",
             data: {
-                counter: 0,
+                hashTags: [],
+                cities: [],
+                textSearch: "",
+                url: {
+                    hashTags: 'https://dka-develop.ru/api?type=hashtag',
+                    cities: 'https://dka-develop.ru/api?type=city'
+                }
+            },
+
+            //subscriber method after testSearch
+            watch: {
+                textSearch: function () {
+                    if (this.textSearch.length > 3) {
+                        this.textSearch = "Яэль кукла";
+                    }
+                }
             },
             methods: {
-                count_up() {
-                    this.counter++;
+                getHashTag() {
+                    console.log('get hashtags from ' + this.url.hashTags);
+
+                    //arrow func
+                    axios.get(this.url.hashTags).then((response) => {
+                        console.log(response)
+                        this.hashTags = response.data;
+                    });
+                },
+
+                getCities() {
+                    console.log('get cities from ' + this.url.cities);
+
+                    //arrow func
+                    axios.get(this.url.cities).then((response) => {
+                        console.log(response)
+                        this.cities = response.data;
+                    });
                 }
             }
         })
