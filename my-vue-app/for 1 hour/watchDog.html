@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- development version of CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <div id="WatchDogManager">
+        <button @click="startAllServices">Start all services</button>
+        <button @click="stopAllServices">Stop all services</button>
+
+        <button @click="getRunningProcesses">Get Running Processes</button>
+        <ul>
+            <li v-for="proc in runningProcesses">{{runningProcesses.path}} {{runningProcesses.pid}}</li>
+        </ul>
+    </div>
+
+    <script type="text/javascript">
+        var watchDogManagerInstance = new Vue({
+            el: "#WatchDogManager",
+            data: {
+                runningProcesses: [],
+                watchDogCommandUrls: {
+                    startAllProcessesUrl: '127.0.0.1:5555/startAllProcesses',
+                    stopAllProcessesUrl: '127.0.0.1:5555/stopAllProcesses',
+                    getRunningProcessesUrl: '127.0.0.1:5555/getRunningProcesses'
+                }
+            },
+            created: function () {
+                console.log('watchDogManagerInstance created')
+                this.getRunningProcesses()
+            },
+            methods: {
+                startAllServices() {
+                    console.log('start All processes, send ' + this.url.startAllProcessesUrl);
+                    axios.post(this.url.startAllProcessesUrl);
+                },
+                stopAllServices() {
+                    console.log('stop All processes, send ' + this.url.stopAllProcessesUrl);
+                    axios.post(this.url.stopAllProcessesUrl);
+                },
+                getRunningProcesses() {
+                    console.log('get Running Processes ' + this.url.getRunningProcessesUrl);
+                    axios.get(this.url.getRunningProcessesUrl).then((response) => {
+                        console.log(response)
+                        this.runningProcesses = response.data;
+                    });
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
